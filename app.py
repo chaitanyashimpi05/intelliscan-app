@@ -1,14 +1,13 @@
-import streamlit as st
-import pdfplumber
-import docx
-import pandas as pd
-import plotly.graph_objects as go
-import spacy
-import os
-from fpdf import FPDF
 import spacy
 import subprocess
-subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+
+# Automatically download the model if not already present
+try:
+    nlp = spacy.load("en_core_web_sm")
+except OSError:
+    subprocess.run(["python", "-m", "spacy", "download", "en_core_web_sm"])
+    nlp = spacy.load("en_core_web_sm")
+
 
 nlp = spacy.load("en_core_web_sm")
 def extract_text(uploaded_file):
